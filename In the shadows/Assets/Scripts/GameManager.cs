@@ -5,10 +5,23 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
+    public static GameManager Instance;
+    public bool HorizontalRotationAllowed;
+    public bool VerticalRotationAllowed;
+    public bool MovementAllowed;
+    
+    void Awake()
+    {
+        if (Instance != null && Instance != this)
+            Destroy(gameObject);
+ 
+        Instance = this;
+    }
+    
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     public void LoadScene(string sceneName)
