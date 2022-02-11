@@ -1,19 +1,24 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
+public struct RotationCheckerObject {
+    public Transform Target;
+    public List<Quaternion> CorrectRotations;
+}
+
 public class RotationChecker : MonoBehaviour
 {
-    public Transform TargetTransform;
-    public float ErrorMargin;
-    
+    private List<RotationCheckerObject> m_Checks;
     private TextMeshProUGUI m_text;
-    private List<Quaternion> m_CorrectRotations;
     
-    public void SetCorrectRotations(List<Quaternion> i_Rotations)
+    public void SetCorrectRotations(RotationCheckerObject i_ToAdd)
     {
-        m_CorrectRotations = i_Rotations;
+        if (m_Checks == null)
+        {
+            m_Checks = new List<RotationCheckerObject>();
+        }
+        m_Checks.Add(i_ToAdd);
     }
 
     void Start()
@@ -23,11 +28,17 @@ public class RotationChecker : MonoBehaviour
 
     void Update()
     {
-        float similarity = 0;
-        foreach(Quaternion correctRotation in m_CorrectRotations)
+        float totalSimilarity = 0;
+        foreach (RotationCheckerObject check in m_Checks)
         {
-            similarity = Mathf.Max(similarity, Mathf.Abs(Quaternion.Dot(correctRotation, TargetTransform.rotation)));
+            float similarity = 0;
+            foreach(Quaternion correctRotation in check.CorrectRotations)
+            {
+                similarity = Mathf.Max(similarity, Mathf.Abs(Quaternion.Dot(correctRotation, check.Target.rotation)));
+            }
+            totalSimilarity += similarity;
         }
-        m_text.text = "Similarity: " + similarity + "\n" + (1 - ErrorMargin < similarity);
+        totalSimilarity /= m_Checks.Count;
+        m_text.text = "Similarity: " + totalSimilarity + "\n" + (1 - GameManager.Instance.CurrentErrorMargin < totalSimilarity);
     }
 }

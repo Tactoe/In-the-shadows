@@ -1,14 +1,15 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+
+public enum Difficulties {easy, normal, hard};
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
-    public bool HorizontalRotationAllowed;
-    public bool VerticalRotationAllowed;
-    public bool MovementAllowed;
+
+    public float CurrentErrorMargin {
+        get; private set;
+    }
     
     void Awake()
     {
@@ -16,26 +17,32 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
  
         Instance = this;
+        SetDifficulty(Difficulties.normal);
     }
     
-    // Start is called before the first frame update
-    void Start()
+    public void SetDifficulty(Difficulties i_NewDifficulty)
     {
-
+        switch (i_NewDifficulty)
+        {
+            case (Difficulties.easy):
+                CurrentErrorMargin = 0.01f;
+                break;
+            case (Difficulties.normal):
+                CurrentErrorMargin = 0.001f;
+                break;
+            case (Difficulties.hard):
+                CurrentErrorMargin = 0.0001f;
+                break;
+        }
     }
 
-    public void LoadScene(string sceneName)
+    public void LoadScene(string i_SceneName)
     {
-        SceneManager.LoadScene(sceneName);
+        SceneManager.LoadScene(i_SceneName);
     }
 
     public void ApplicationQuit()
     {
         Application.Quit();
-    }
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }

@@ -329,7 +329,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6615feffad1d1054eb0011c64d88cd33, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  RotationSpeed: 1000
+  m_HorizontalRotationAllowed: 1
+  m_VerticalRotationAllowed: 0
+  m_LevelWithSelect: 0
+  m_IsAnchor: 0
 --- !u!4 &1733273895
 Transform:
   m_ObjectHideFlags: 0
@@ -376,6 +379,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Checker: {fileID: 496531384}
+  Target: {fileID: 1733273895}
 --- !u!4 &2075106051
 Transform:
   m_ObjectHideFlags: 0
@@ -449,6 +453,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2845087929787170719, guid: db0f8645f6197ff4dbcf8d473f59f827, type: 3}
       propertyPath: TargetTransform
+      value: 
+      objectReference: {fileID: 1733273895}
+    - target: {fileID: 2845087929787170719, guid: db0f8645f6197ff4dbcf8d473f59f827, type: 3}
+      propertyPath: m_Checks.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2845087929787170719, guid: db0f8645f6197ff4dbcf8d473f59f827, type: 3}
+      propertyPath: m_Checks.Array.data[0].Target
       value: 
       objectReference: {fileID: 1733273895}
     m_RemovedComponents: []

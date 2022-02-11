@@ -152,7 +152,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6615feffad1d1054eb0011c64d88cd33, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  RotationSpeed: 1000
+  m_HorizontalRotationAllowed: 1
+  m_VerticalRotationAllowed: 1
+  m_LevelWithSelect: 0
+  m_IsAnchor: 0
 --- !u!4 &15426590
 Transform:
   m_ObjectHideFlags: 0
@@ -407,6 +410,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Checker: {fileID: 1778609647}
+  Target: {fileID: 15426590}
 --- !u!4 &1991183277
 Transform:
   m_ObjectHideFlags: 0
