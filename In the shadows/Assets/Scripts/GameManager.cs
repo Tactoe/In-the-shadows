@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEditor;
 using UnityEngine.SceneManagement;
 
 public enum Difficulties {easy, normal, hard};
@@ -6,17 +7,31 @@ public enum Difficulties {easy, normal, hard};
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
-
     public float CurrentErrorMargin {
         get; private set;
     }
+    [SerializeField]
+    private int m_CurrentLevel;
+    private int m_LevelCount;
     
     void Awake()
     {
         if (Instance != null && Instance != this)
+        {
             Destroy(gameObject);
+            return;
+        }
  
         Instance = this;
+        DontDestroyOnLoad(gameObject);
+        m_LevelCount = 0;
+        foreach(EditorBuildSettingsScene scene in EditorBuildSettings.scenes)
+        {
+            if(scene.path.Contains("Level"))
+            {
+                m_LevelCount++;
+            }
+        }
         SetDifficulty(Difficulties.normal);
     }
     
@@ -36,9 +51,29 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void LoadScene(string i_SceneName)
+    public void NextLevel()
     {
-        SceneManager.LoadScene(i_SceneName);
+        if (m_CurrentLevel + 1 <= m_LevelCount)
+        {
+            m_CurrentLevel++;
+            LoadLevel(m_CurrentLevel);
+        }
+        else
+        {
+            SceneManager.LoadScene("Main Menu");
+        }
+    }
+
+    public void LoadLevel(int i_LevelIndex)
+    {
+        m_CurrentLevel = i_LevelIndex;
+        SceneManager.LoadScene("Base Environment");
+        SceneManager.LoadScene("Level " + i_LevelIndex, LoadSceneMode.Additive);
+    }
+
+    public void StartGame()
+    {
+        LoadLevel(1);
     }
 
     public void ApplicationQuit()

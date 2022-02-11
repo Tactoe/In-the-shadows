@@ -40,5 +40,9 @@ public class RotationChecker : MonoBehaviour
         }
         totalSimilarity /= m_Checks.Count;
         m_text.text = "Similarity: " + totalSimilarity + "\n" + (1 - GameManager.Instance.CurrentErrorMargin < totalSimilarity);
+        if (1 - GameManager.Instance.CurrentErrorMargin < totalSimilarity)
+        {
+            GameManager.Instance.NextLevel();
+        }
     }
 }
