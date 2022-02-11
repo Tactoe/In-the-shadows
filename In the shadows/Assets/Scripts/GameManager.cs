@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEditor;
 using UnityEngine.SceneManagement;
 
 public enum Difficulties {easy, normal, hard};
@@ -24,14 +23,7 @@ public class GameManager : MonoBehaviour
  
         Instance = this;
         DontDestroyOnLoad(gameObject);
-        m_LevelCount = 0;
-        foreach(EditorBuildSettingsScene scene in EditorBuildSettings.scenes)
-        {
-            if(scene.path.Contains("Level"))
-            {
-                m_LevelCount++;
-            }
-        }
+        m_LevelCount = 3;
         SetDifficulty(Difficulties.normal);
     }
     
