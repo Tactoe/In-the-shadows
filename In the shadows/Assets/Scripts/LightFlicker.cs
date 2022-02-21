@@ -14,13 +14,11 @@ public class LightFlicker : MonoBehaviour
     private bool m_Increasing;
     private Light m_Light;
 
-    // Start is called before the first frame update
     void Start()
     {
         m_Light = GetComponent<Light>();
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (m_Increasing)

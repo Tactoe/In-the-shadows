@@ -10,7 +10,7 @@ public struct RotationCheckerObject {
 public class RotationChecker : MonoBehaviour
 {
     private List<RotationCheckerObject> m_Checks;
-    private TextMeshProUGUI m_text;
+    private TextMeshProUGUI m_Text;
     
     public void SetCorrectRotations(RotationCheckerObject i_ToAdd)
     {
@@ -23,7 +23,7 @@ public class RotationChecker : MonoBehaviour
 
     void Start()
     {
-        m_text = GetComponentInChildren<TextMeshProUGUI>();
+        m_Text = GetComponentInChildren<TextMeshProUGUI>();
     }
 
     void Update()
@@ -39,7 +39,7 @@ public class RotationChecker : MonoBehaviour
             totalSimilarity += similarity;
         }
         totalSimilarity /= m_Checks.Count;
-        m_text.text = "Similarity: " + totalSimilarity + "\n" + (1 - GameManager.Instance.CurrentErrorMargin < totalSimilarity);
+        m_Text.text = "Similarity: " + totalSimilarity + "\n" + (1 - GameManager.Instance.CurrentErrorMargin < totalSimilarity);
         if (1 - GameManager.Instance.CurrentErrorMargin < totalSimilarity)
         {
             GameManager.Instance.NextLevel();

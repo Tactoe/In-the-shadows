@@ -9,8 +9,16 @@ public class GameManager : MonoBehaviour
     public float CurrentErrorMargin {
         get; private set;
     }
+    public bool GameStarted {
+        get; private set;
+    }
+    public int LevelsUnlocked {
+        get; private set;
+    }
+    private FadeCanvas m_FadeCanvas;
     [SerializeField]
     private int m_CurrentLevel;
+    [SerializeField]
     private int m_LevelCount;
     
     void Awake()
@@ -23,7 +31,9 @@ public class GameManager : MonoBehaviour
  
         Instance = this;
         DontDestroyOnLoad(gameObject);
-        m_LevelCount = 3;
+        LevelsUnlocked = PlayerPrefs.GetInt("LevelsUnlocked", 1);
+        GameStarted = true;
+        m_FadeCanvas = GetComponentInChildren<FadeCanvas>();
         SetDifficulty(Difficulties.normal);
     }
     
@@ -48,7 +58,7 @@ public class GameManager : MonoBehaviour
         if (m_CurrentLevel + 1 <= m_LevelCount)
         {
             m_CurrentLevel++;
-            LoadLevel(m_CurrentLevel);
+            StartLoadLevel(m_CurrentLevel);
         }
         else
         {
@@ -56,16 +66,16 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void LoadLevel(int i_LevelIndex)
+    public void StartLoadLevel(int i_LevelIndex)
     {
+        m_FadeCanvas.FadeIn();
         m_CurrentLevel = i_LevelIndex;
-        SceneManager.LoadScene("Base Environment");
-        SceneManager.LoadScene("Level " + i_LevelIndex, LoadSceneMode.Additive);
     }
 
-    public void StartGame()
+    public void CompleteLoadLevel()
     {
-        LoadLevel(1);
+        SceneManager.LoadScene("Base Environment");
+        SceneManager.LoadScene("Level " + m_CurrentLevel, LoadSceneMode.Additive);
     }
 
     public void ApplicationQuit()
