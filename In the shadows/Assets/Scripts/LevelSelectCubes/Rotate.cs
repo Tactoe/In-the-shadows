@@ -7,7 +7,6 @@ public class Rotate : MonoBehaviour
     void Start()
     {
         m_RotateSpeed = Random.Range(3, 5f);
-        m_RotateSpeed *= (Random.Range(0, 2) > 1 ? 1 : -1 );
     }
 
     void Update()

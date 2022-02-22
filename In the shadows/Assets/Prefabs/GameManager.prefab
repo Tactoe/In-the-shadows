@@ -46,7 +46,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_CurrentLevel: 0
-  m_LevelCount: 0
+  m_LevelCount: 3
 --- !u!1 &2637379039255850047
 GameObject:
   m_ObjectHideFlags: 0

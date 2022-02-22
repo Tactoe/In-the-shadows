@@ -11,6 +11,7 @@ public class RotationChecker : MonoBehaviour
 {
     private List<RotationCheckerObject> m_Checks;
     private TextMeshProUGUI m_Text;
+    private bool m_GameWon;
     
     public void SetCorrectRotations(RotationCheckerObject i_ToAdd)
     {
@@ -39,9 +40,9 @@ public class RotationChecker : MonoBehaviour
             totalSimilarity += similarity;
         }
         totalSimilarity /= m_Checks.Count;
-        m_Text.text = "Similarity: " + totalSimilarity + "\n" + (1 - GameManager.Instance.CurrentErrorMargin < totalSimilarity);
-        if (1 - GameManager.Instance.CurrentErrorMargin < totalSimilarity)
+        if (!m_GameWon && (1 - GameManager.Instance.CurrentErrorMargin < totalSimilarity || GameManager.Instance.CurrentErrorMargin > totalSimilarity))
         {
+            m_GameWon = true;
             GameManager.Instance.NextLevel();
         }
     }

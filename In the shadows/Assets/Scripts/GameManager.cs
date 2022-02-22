@@ -15,6 +15,7 @@ public class GameManager : MonoBehaviour
     public int LevelsUnlocked {
         get; private set;
     }
+    public bool TestingMode;
     private FadeCanvas m_FadeCanvas;
     [SerializeField]
     private int m_CurrentLevel;
@@ -55,9 +56,15 @@ public class GameManager : MonoBehaviour
 
     public void NextLevel()
     {
+        print("IM CALLED");
         if (m_CurrentLevel + 1 <= m_LevelCount)
         {
             m_CurrentLevel++;
+            if (m_CurrentLevel > LevelsUnlocked)
+            {
+                LevelsUnlocked = m_CurrentLevel;
+                PlayerPrefs.SetInt("LevelsUnlocked", LevelsUnlocked);
+            }
             StartLoadLevel(m_CurrentLevel);
         }
         else
