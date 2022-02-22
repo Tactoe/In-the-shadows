@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 
 public struct RotationCheckerObject {
@@ -9,8 +10,9 @@ public struct RotationCheckerObject {
 
 public class RotationChecker : MonoBehaviour
 {
+    [SerializeField]
+    private Image m_ProgressionIndicator;
     private List<RotationCheckerObject> m_Checks;
-    private TextMeshProUGUI m_Text;
     private bool m_GameWon;
     
     public void SetCorrectRotations(RotationCheckerObject i_ToAdd)
@@ -20,11 +22,6 @@ public class RotationChecker : MonoBehaviour
             m_Checks = new List<RotationCheckerObject>();
         }
         m_Checks.Add(i_ToAdd);
-    }
-
-    void Start()
-    {
-        m_Text = GetComponentInChildren<TextMeshProUGUI>();
     }
 
     void Update()
@@ -40,10 +37,11 @@ public class RotationChecker : MonoBehaviour
             totalSimilarity += similarity;
         }
         totalSimilarity /= m_Checks.Count;
+        m_ProgressionIndicator.fillAmount = totalSimilarity - GameManager.Instance.CurrentErrorMargin;
         if (!m_GameWon && (1 - GameManager.Instance.CurrentErrorMargin < totalSimilarity || GameManager.Instance.CurrentErrorMargin > totalSimilarity))
         {
             m_GameWon = true;
-            GameManager.Instance.NextLevel();
+            GameManager.Instance.UnlockNextLevel();
         }
     }
 }
