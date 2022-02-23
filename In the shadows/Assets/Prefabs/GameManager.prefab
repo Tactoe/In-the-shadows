@@ -1851,6 +1851,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3bffa2d3231e9a54fb0596a2ead1c8b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  GoStraightToLevelSelect: 0
   TestingMode: 0
   m_PauseMenu: {fileID: 480946526}
   m_NextLevelMenu: {fileID: 5946275169250231559}
@@ -2119,7 +2120,7 @@ GameObject:
   - component: {fileID: 5888113636009003974}
   - component: {fileID: 6856811600738906385}
   m_Layer: 0
-  m_Name: Game Pause
+  m_Name: Puzzle Complete
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2138,10 +2139,10 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8397557863968763045}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: -130.2}
   m_SizeDelta: {x: 0, y: 50}
   m_Pivot: {x: 0.5, y: 1}
@@ -2599,6 +2600,7 @@ GameObject:
   - component: {fileID: 8005092030733936338}
   - component: {fileID: 2515701811975029188}
   - component: {fileID: 5671421030373495314}
+  - component: {fileID: 2436963760288784575}
   m_Layer: 0
   m_Name: NextLevelCanvas
   m_TagString: Untagged
@@ -2619,8 +2621,8 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6311848028052176820}
-  - {fileID: 2804574979061632810}
   - {fileID: 7660132188761472202}
+  - {fileID: 2804574979061632810}
   m_Father: {fileID: 1863937735218613505}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2690,6 +2692,45 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &2436963760288784575
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5946275169250231559}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31a8fccdf6b006240922c69e014236e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Curve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 450
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 2
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  m_PuzzleCompleteRT: {fileID: 7660132188761472202}
+  m_ButtonsRT: {fileID: 2804574979061632810}
+  m_SlideTime: 0
 --- !u!1 &6094806057910746370
 GameObject:
   m_ObjectHideFlags: 0
@@ -2722,7 +2763,7 @@ RectTransform:
   - {fileID: 8883319713843908339}
   - {fileID: 7632889672729659283}
   m_Father: {fileID: 8397557863968763045}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}

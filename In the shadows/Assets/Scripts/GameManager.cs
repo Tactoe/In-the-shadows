@@ -81,6 +81,11 @@ public class GameManager : MonoBehaviour
         m_MusicAudioSource.volume = volume;
         m_SFXAudioSource.volume = volume;
     }
+    
+    public float GetVolume()
+    {
+        return m_MusicAudioSource.volume;
+    }
 
     public void UnlockNextLevel()
     {
