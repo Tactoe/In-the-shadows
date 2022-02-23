@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class LevelSelectCube : MonoBehaviour
@@ -15,7 +13,7 @@ public class LevelSelectCube : MonoBehaviour
     private GameObject m_LockIcon;
     [SerializeField]
     private GameObject m_CompletedText;
-    // Start is called before the first frame update
+    
     void Start()
     {
         if (Level <= GameManager.Instance.LevelsCompleted)

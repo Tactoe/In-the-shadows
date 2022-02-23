@@ -8,14 +8,13 @@ public class RotationSelector : MonoBehaviour
     private List<RotateObject> m_SelectableObjects;
     private int m_CurrentSelectedIndex;
     private bool m_CanSwitchSelection;
-    // Start is called before the first frame update
+    
     void Start()
     {
         m_CurrentSelectedIndex = 0;
         m_SelectableObjects[m_CurrentSelectedIndex].SetSelected(true);
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.LeftShift))

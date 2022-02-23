@@ -7,6 +7,7 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
     public bool GoStraightToLevelSelect;
+    public Difficulties CurrentDifficulty;
     public float CurrentErrorMargin {
         get; private set;
     }
@@ -29,7 +30,6 @@ public class GameManager : MonoBehaviour
     private AudioSource m_MusicAudioSource;
     [SerializeField]
     private AudioSource m_SFXAudioSource;
-    private int m_LevelCount;
     private string m_LevelToLoad;
     private FadeCanvas m_FadeCanvas;
     
@@ -42,7 +42,7 @@ public class GameManager : MonoBehaviour
         }
  
         Instance = this;
-        PlayerPrefs.DeleteAll();
+        //PlayerPrefs.DeleteAll();
         m_FadeCanvas = GetComponentInChildren<FadeCanvas>();
         DontDestroyOnLoad(gameObject);
         LevelsUnlocked = PlayerPrefs.GetInt("LevelsUnlocked", 1);
@@ -63,6 +63,7 @@ public class GameManager : MonoBehaviour
     
     public void SetDifficulty(Difficulties i_NewDifficulty)
     {
+        CurrentDifficulty = i_NewDifficulty;
         switch (i_NewDifficulty)
         {
             case (Difficulties.easy):
@@ -76,10 +77,10 @@ public class GameManager : MonoBehaviour
                 break;
         }
     }
-    public void SetVolume(float volume)
+    public void SetVolume(float i_Volume)
     {
-        m_MusicAudioSource.volume = volume;
-        m_SFXAudioSource.volume = volume;
+        m_MusicAudioSource.volume = i_Volume;
+        m_SFXAudioSource.volume = i_Volume;
     }
     
     public float GetVolume()
