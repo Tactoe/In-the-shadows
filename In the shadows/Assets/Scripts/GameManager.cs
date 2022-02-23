@@ -6,10 +6,8 @@ public enum Difficulties {easy, normal, hard};
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
+    public bool GoStraightToLevelSelect;
     public float CurrentErrorMargin {
-        get; private set;
-    }
-    public bool GoStraightToLevelSelect {
         get; private set;
     }
     public int LevelsUnlocked {
@@ -22,13 +20,18 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private GameObject m_PauseMenu;
     [SerializeField]
+    private GameObject m_NextLevelMenu;
+    [SerializeField]
     private int m_CurrentLevel;
     [SerializeField]
     private bool m_LoadingLevel;
+    [SerializeField]
+    private AudioSource m_MusicAudioSource;
+    [SerializeField]
+    private AudioSource m_SFXAudioSource;
     private int m_LevelCount;
     private string m_LevelToLoad;
     private FadeCanvas m_FadeCanvas;
-    private AudioSource m_AudioSource;
     
     void Awake()
     {
@@ -39,12 +42,12 @@ public class GameManager : MonoBehaviour
         }
  
         Instance = this;
-        //PlayerPrefs.DeleteAll();
+        PlayerPrefs.DeleteAll();
+        m_FadeCanvas = GetComponentInChildren<FadeCanvas>();
         DontDestroyOnLoad(gameObject);
         LevelsUnlocked = PlayerPrefs.GetInt("LevelsUnlocked", 1);
         LevelsCompleted = PlayerPrefs.GetInt("LevelsCompleted", 0);
         GoStraightToLevelSelect = false;
-        m_FadeCanvas = GetComponentInChildren<FadeCanvas>();
         SetDifficulty(Difficulties.normal);
     }
     
@@ -66,21 +69,22 @@ public class GameManager : MonoBehaviour
                 CurrentErrorMargin = 0.01f;
                 break;
             case (Difficulties.normal):
-                CurrentErrorMargin = 0.005f;
+                CurrentErrorMargin = 0.001f;
                 break;
             case (Difficulties.hard):
-                CurrentErrorMargin = 0.001f;
+                CurrentErrorMargin = 0.0005f;
                 break;
         }
     }
     public void SetVolume(float volume)
     {
-        m_AudioSource.volume = volume;
+        m_MusicAudioSource.volume = volume;
+        m_SFXAudioSource.volume = volume;
     }
 
     public void UnlockNextLevel()
     {
-        GoStraightToLevelSelect = true;
+        m_SFXAudioSource.Play();
         if (m_CurrentLevel > LevelsCompleted)
         {
             LevelsCompleted = m_CurrentLevel;
@@ -92,7 +96,8 @@ public class GameManager : MonoBehaviour
             LevelsUnlocked = m_CurrentLevel;
             PlayerPrefs.SetInt("LevelsUnlocked", LevelsUnlocked);
         }
-        StartLoadLevel(0);
+        GoStraightToLevelSelect = true;
+        m_NextLevelMenu.SetActive(true);
     }
 
     public void StartLoadLevel(int i_LevelIndex)
@@ -103,7 +108,7 @@ public class GameManager : MonoBehaviour
         m_LoadingLevel = true;
     }
 
-    private void ResetPauseMenuState()
+    public void ResetPauseMenuState()
     {
         m_PauseMenu.SetActive(false);
         Time.timeScale = 1;

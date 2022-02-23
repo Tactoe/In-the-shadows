@@ -21,7 +21,7 @@ public class RotateObject : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetMouseButton(0))
+        if (Input.GetMouseButton(0) && !GameManager.Instance.GoStraightToLevelSelect)
         {
             if ((m_LevelWithSelect && !Input.GetKey(KeyCode.LeftShift) && m_Selected) ||
                 (m_LevelWithSelect && Input.GetKey(KeyCode.LeftShift) && m_IsAnchor) ||

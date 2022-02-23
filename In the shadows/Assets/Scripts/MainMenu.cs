@@ -14,6 +14,7 @@ public class MainMenu : MonoBehaviour
         if (goStraightToLevelSelect)
         {
             InstantiateLevelSelect();
+            GameManager.Instance.GoStraightToLevelSelect = false;
         }
     }
 
