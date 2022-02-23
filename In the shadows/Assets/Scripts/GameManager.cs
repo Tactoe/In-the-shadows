@@ -9,7 +9,7 @@ public class GameManager : MonoBehaviour
     public float CurrentErrorMargin {
         get; private set;
     }
-    public bool GameStarted {
+    public bool GoStraightToLevelSelect {
         get; private set;
     }
     public int LevelsUnlocked {
@@ -24,10 +24,11 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private int m_CurrentLevel;
     [SerializeField]
-    private int m_LevelCount;
-    private FadeCanvas m_FadeCanvas;
-    private string m_LevelToLoad;
     private bool m_LoadingLevel;
+    private int m_LevelCount;
+    private string m_LevelToLoad;
+    private FadeCanvas m_FadeCanvas;
+    private AudioSource m_AudioSource;
     
     void Awake()
     {
@@ -42,10 +43,20 @@ public class GameManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
         LevelsUnlocked = PlayerPrefs.GetInt("LevelsUnlocked", 1);
         LevelsCompleted = PlayerPrefs.GetInt("LevelsCompleted", 0);
-        GameStarted = true;
+        GoStraightToLevelSelect = false;
         m_FadeCanvas = GetComponentInChildren<FadeCanvas>();
         SetDifficulty(Difficulties.normal);
     }
+    
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape) && !m_LoadingLevel && SceneManager.GetActiveScene().name != "Main Menu")
+        {
+            m_PauseMenu.SetActive(!m_PauseMenu.activeSelf);
+            Time.timeScale = m_PauseMenu.activeSelf ? 0 : 1;
+        }
+    }
+
     
     public void SetDifficulty(Difficulties i_NewDifficulty)
     {
@@ -62,22 +73,24 @@ public class GameManager : MonoBehaviour
                 break;
         }
     }
+    public void SetVolume(float volume)
+    {
+        m_AudioSource.volume = volume;
+    }
 
     public void UnlockNextLevel()
     {
-        if (m_CurrentLevel + 1 <= m_LevelCount)
+        GoStraightToLevelSelect = true;
+        if (m_CurrentLevel > LevelsCompleted)
         {
-            if (m_CurrentLevel > LevelsCompleted)
-            {
-                LevelsCompleted = m_CurrentLevel;
-                PlayerPrefs.SetInt("LevelsCompleted", m_CurrentLevel);
-            }
-            m_CurrentLevel++;
-            if (m_CurrentLevel > LevelsUnlocked)
-            {
-                LevelsUnlocked = m_CurrentLevel;
-                PlayerPrefs.SetInt("LevelsUnlocked", LevelsUnlocked);
-            }
+            LevelsCompleted = m_CurrentLevel;
+            PlayerPrefs.SetInt("LevelsCompleted", m_CurrentLevel);
+        }
+        m_CurrentLevel++;
+        if (m_CurrentLevel > LevelsUnlocked)
+        {
+            LevelsUnlocked = m_CurrentLevel;
+            PlayerPrefs.SetInt("LevelsUnlocked", LevelsUnlocked);
         }
         StartLoadLevel(0);
     }
@@ -107,15 +120,6 @@ public class GameManager : MonoBehaviour
         {
             SceneManager.LoadScene("Base Environment");
             SceneManager.LoadScene("Level " + m_CurrentLevel, LoadSceneMode.Additive);
-        }
-    }
-
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Escape) && !m_LoadingLevel && SceneManager.GetActiveScene().name != "Main Menu")
-        {
-            m_PauseMenu.SetActive(!m_PauseMenu.activeSelf);
-            Time.timeScale = m_PauseMenu.activeSelf ? 0 : 1;
         }
     }
 

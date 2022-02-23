@@ -18,8 +18,7 @@ public class LevelSelectCube : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        print(GameManager.Instance.LevelsCompleted);
-        if (Level <= GameManager.Instance.LevelsCompleted || GameManager.Instance.TestingMode)
+        if (Level <= GameManager.Instance.LevelsCompleted)
         {
             m_CompletedText.SetActive(true);
             m_LockIcon.SetActive(false);

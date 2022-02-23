@@ -19,7 +19,10 @@ public class GrowIn : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.localScale = Vector3.one * m_Curve.Evaluate(m_Timer / m_GrowTime);
-        m_Timer += Time.deltaTime;
+        if (m_Timer < m_GrowTime)
+        {
+            transform.localScale = Vector3.one * m_Curve.Evaluate(m_Timer / m_GrowTime);
+            m_Timer += Time.deltaTime;
+        }
     }
 }

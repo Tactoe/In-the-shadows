@@ -5,8 +5,21 @@ using TMPro;
 
 public class MainMenu : MonoBehaviour
 {
+    [SerializeField]
+    private GameObject m_LevelSelectCubes;
     void Start()
     {
-       //gameObject.SetActive(!GameManager.Instance.GameStarted);
+        bool goStraightToLevelSelect = GameManager.Instance.GoStraightToLevelSelect;
+        gameObject.SetActive(!goStraightToLevelSelect);
+        if (goStraightToLevelSelect)
+        {
+            InstantiateLevelSelect();
+        }
+    }
+
+    public void InstantiateLevelSelect()
+    {
+       GameObject levelSelectCubesGO = Instantiate(m_LevelSelectCubes);
+       levelSelectCubesGO.GetComponent<BackToStartMenuButton>().StartMenuGO = gameObject;
     }
 }
