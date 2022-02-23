@@ -42,18 +42,20 @@ public class GameManager : MonoBehaviour
         }
  
         Instance = this;
-        //PlayerPrefs.DeleteAll();
         m_FadeCanvas = GetComponentInChildren<FadeCanvas>();
         DontDestroyOnLoad(gameObject);
         LevelsUnlocked = PlayerPrefs.GetInt("LevelsUnlocked", 1);
         LevelsCompleted = PlayerPrefs.GetInt("LevelsCompleted", 0);
+        print(LevelsUnlocked);
+        print(LevelsCompleted);
         GoStraightToLevelSelect = false;
         SetDifficulty(Difficulties.normal);
     }
     
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape) && !m_LoadingLevel && SceneManager.GetActiveScene().name != "Main Menu")
+        if (Input.GetKeyDown(KeyCode.Escape) && !m_LoadingLevel &&
+            SceneManager.GetActiveScene().name != "Main Menu")
         {
             m_PauseMenu.SetActive(!m_PauseMenu.activeSelf);
             Time.timeScale = m_PauseMenu.activeSelf ? 0 : 1;
@@ -132,6 +134,13 @@ public class GameManager : MonoBehaviour
             SceneManager.LoadScene("Base Environment");
             SceneManager.LoadScene("Level " + m_CurrentLevel, LoadSceneMode.Additive);
         }
+    }
+
+    public void ErasePlayerData()
+    {
+        PlayerPrefs.DeleteAll();
+        LevelsUnlocked = PlayerPrefs.GetInt("LevelsUnlocked", 1);
+        LevelsCompleted = PlayerPrefs.GetInt("LevelsCompleted", 0);
     }
 
     public void ApplicationQuit()

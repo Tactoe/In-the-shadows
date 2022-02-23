@@ -10,7 +10,7 @@ public class RotateObject : MonoBehaviour
     private bool m_LevelWithSelect;
     [SerializeField]
     private bool m_IsAnchor;
-    private float m_RotationSpeed = 1000;
+    private float m_RotationSpeed = 500;
     private bool m_Selected = false;
 
     public void SetSelected(bool i_Selected)
@@ -18,7 +18,6 @@ public class RotateObject : MonoBehaviour
         m_Selected = i_Selected;
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (Input.GetMouseButton(0) && !GameManager.Instance.GoStraightToLevelSelect)

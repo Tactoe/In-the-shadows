@@ -14,7 +14,6 @@ public class GrowIn : MonoBehaviour
         transform.localScale = Vector3.zero;
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (m_Timer < m_GrowTime)

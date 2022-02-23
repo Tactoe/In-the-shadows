@@ -11,7 +11,9 @@ public class LoadLevelOnClick : MonoBehaviour
             if (Physics.Raycast(ray, out raycastHit, 100f))
             {
                 LevelSelectCube levelSelect = raycastHit.collider.gameObject.GetComponent<LevelSelectCube>();
-                if (levelSelect != null && levelSelect.Level <= GameManager.Instance.LevelsUnlocked)
+                if (levelSelect != null &&
+                    (levelSelect.Level <= GameManager.Instance.LevelsUnlocked ||
+                    GameManager.Instance.TestingMode))
                 {
                     GameManager.Instance.StartLoadLevel(levelSelect.Level);
                 }

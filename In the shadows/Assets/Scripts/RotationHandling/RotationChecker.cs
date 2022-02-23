@@ -37,9 +37,9 @@ public class RotationChecker : MonoBehaviour
         }
         totalSimilarity /= m_Checks.Count;
         m_ProgressionIndicator.fillAmount = totalSimilarity - GameManager.Instance.CurrentErrorMargin;
-        if (!m_GameWon
-            && (1 - GameManager.Instance.CurrentErrorMargin < totalSimilarity
-            || GameManager.Instance.CurrentErrorMargin > totalSimilarity))
+        if (!m_GameWon &&
+            (1 - GameManager.Instance.CurrentErrorMargin < totalSimilarity))
+            //GameManager.Instance.CurrentErrorMargin > totalSimilarity))
         {
             m_GameWon = true;
             GameManager.Instance.UnlockNextLevel();

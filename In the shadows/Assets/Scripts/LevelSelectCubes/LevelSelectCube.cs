@@ -22,7 +22,8 @@ public class LevelSelectCube : MonoBehaviour
             m_LockIcon.SetActive(false);
             m_CubeRenderer.material = m_LevelCompletedMaterial;
         }
-        else if (Level <= GameManager.Instance.LevelsUnlocked || GameManager.Instance.TestingMode)
+        else if (Level <= GameManager.Instance.LevelsUnlocked ||
+                GameManager.Instance.TestingMode)
         {
             m_LockIcon.SetActive(false);
             m_CubeRenderer.material = m_LevelUnlockedMaterial;
