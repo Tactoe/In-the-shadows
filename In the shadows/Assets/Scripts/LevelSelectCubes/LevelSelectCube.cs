@@ -13,6 +13,8 @@ public class LevelSelectCube : MonoBehaviour
     private GameObject m_LockIcon;
     [SerializeField]
     private GameObject m_CompletedText;
+    [SerializeField]
+    private ParticleSystem m_Particles;
     
     void Start()
     {
@@ -26,6 +28,7 @@ public class LevelSelectCube : MonoBehaviour
                 GameManager.Instance.TestingMode)
         {
             m_LockIcon.SetActive(false);
+            m_Particles.Play();
             m_CubeRenderer.material = m_LevelUnlockedMaterial;
         }
     }
